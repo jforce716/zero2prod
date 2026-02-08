@@ -23,7 +23,7 @@ jobs:
           components: rustfmt, clippy
 
       - name: Rust Cache
-        uses: swatinem/urst-cache@v2
+        uses: swatinem/rust-cache@v2
 
       - name: Rust formatting
         run: cargo fmt --all -- --check
