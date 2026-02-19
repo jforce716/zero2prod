@@ -41,7 +41,7 @@ jobs:
         uses: swatinem/rust-cache@v2
 
       - name: Install sqlx-cli
-        run: cargo install sqlx-cli --no-default-feature --features postgres
+        run: cargo install sqlx-cli --no-default-features --features postgres
 
       - name: Run Migrations
         run: sqlx migration run
@@ -51,6 +51,6 @@ jobs:
 
       - name: Run Clippy
         run: cargo clippy -- -D warnings
-        
+
       - name: Run tests
         run: cargo test --verbose
