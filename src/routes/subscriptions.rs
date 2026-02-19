@@ -1,6 +1,6 @@
 use actix_web::{HttpResponse, web};
 use sqlx::PgPool;
-use uuid::{Uuid};
+use uuid::Uuid;
 
 #[derive(serde::Deserialize)]
 pub struct Subscriber {
@@ -9,9 +9,11 @@ pub struct Subscriber {
 }
 
 pub async fn subscribe(
-    subscriber: web::Form<Subscriber>, conn_pool: web::Data<PgPool>,
+    subscriber: web::Form<Subscriber>,
+    conn_pool: web::Data<PgPool>,
 ) -> HttpResponse {
-    let result = sqlx::query!(r#"
+    let result = sqlx::query!(
+        r#"
         INSERT INTO subscription(id, email, name, subscribed_at) VALUES($1, $2, $3, $4)
         "#,
         Uuid::now_v7(),
