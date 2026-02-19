@@ -1,0 +1,12 @@
+# Use a slim Rust image to build the CLI
+FROM rust:slim AS builder
+RUN apt-get update && apt-get install -y libssl-dev pkg-config
+# Install only the PostgreSQL version of the CLI
+RUN cargo install sqlx-cli --no-default-features --features postgres
+
+# Use a tiny runtime image
+FROM debian:trixie-slim
+RUN apt-get update && apt-get install -y libssl3 ca-certificates && rm -rf /var/lib/apt/lists/*
+COPY --from=builder /usr/local/cargo/bin/sqlx /usr/local/bin/sqlx
+WORKDIR /
+ENTRYPOINT ["sqlx"]
