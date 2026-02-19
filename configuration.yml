@@ -1,0 +1,5 @@
+port: 7878
+database:
+  host: localhost
+  port: 5432
+  database: zpdb
