@@ -40,17 +40,17 @@ jobs:
       - name: Rust Cache
         uses: swatinem/rust-cache@v2
 
-      - name: Rust formatting
-        run: cargo fmt --all -- --check
-
-      - name: Run Clippy
-        run: cargo clippy -- -D warnings
-
       - name: Install sqlx-cli
         run: cargo install sqlx-cli --no-default-feature --features postgres
 
       - name: Run Migrations
         run: sqlx migration run
+      
+      - name: Rust formatting
+        run: cargo fmt --all -- --check
+
+      - name: Run Clippy
+        run: cargo clippy -- -D warnings
         
       - name: Run tests
         run: cargo test --verbose
